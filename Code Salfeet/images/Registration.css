@@ -1,0 +1,1025 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+<html>
+<head lang="ar">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="styles/abasic.css">
+    <link rel="stylesheet" type="text/css" href="styles/astyle.css">
+    <link rel="stylesheet" type="text/css" href="styles/animate.css">
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <link rel="icon" href="logo.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="logo.ico" type="image/x-icon" />
+    <!-- Bootstrap Core CSS -->
+    <link href="boot/css/bootstrap.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="boot/css/blog-post.css" rel="stylesheet">
+
+    <script type="text/javascript">
+        var lang = 1;
+    </script>
+
+    <script type="text/javascript" src="js/general.js"></script>
+
+    <!-- jQuery -->
+
+    <script type="text/javascript" src="boot/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+
+    <script type="text/javascript" src="boot/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="boot/js/respond.js"></script>
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome-4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+<title>نموذج التسجيل للخدمات الالكتروني</title>
+<link rel="stylesheet" href="themes/base/jquery.ui.all.css">	
+<script type="text/javascript" src="ui/jquery.ui.core.js"></script>
+<script type="text/javascript" src="ui/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="ui/jquery.ui.datepicker.js"></script>
+<script type="text/javascript">
+    
+	$(function() {
+        $('#ctl00_ContentPlaceHolder1_lastchargedate').datepicker({
+            changeMonth: true,
+            changeYear: true
+        });
+        $('#ctl00_ContentPlaceHolder1_lastchargedate').datepicker("option", "dateFormat", "mm-dd-yy");
+    });
+</script>
+<script type="text/javascript" >
+    function normal(type) {
+        if (type == 1) {
+            document.getElementById("last_row").style.display = "block";
+            //document.getElementById("meter_no_div").style.display = "block";
+            document.getElementById("bill_no_div").style.display = "none";
+        }
+        else {
+            document.getElementById("last_row").style.display = "none";
+            //document.getElementById("meter_no_div").style.display = "none";
+            document.getElementById("bill_no_div").style.display = "block";
+        }
+    }
+    function validate_reg() {
+        var isValid = false;
+        isValid = Page_ClientValidate('Group1');
+        if (!isValid) return false;
+        var isValid1 = false;
+        var isValid2 = false;
+        if (document.getElementById("ctl00_ContentPlaceHolder1_pay_method_0").checked) isValid1 = Page_ClientValidate('Group2');
+
+        if (!isValid1) {
+            if (document.getElementById("ctl00_ContentPlaceHolder1_pay_method_1").checked) isValid2 = Page_ClientValidate('Group3');
+        }
+        var ret_val = false;
+        if (isValid1 || isValid2) ret_val = true;
+
+        return ret_val;
+    }
+
+    function desc_validation(source, args) {
+        if (document.getElementById("ctl00_ContentPlaceHolder1_service_desc").value.length > 20) {
+            args.IsValid = false;
+        }
+        else {
+            args.IsValid = true;
+        }
+    }
+
+    function id_validation(source, args) {
+        if (pal_id_validation(document.getElementById("ctl00_ContentPlaceHolder1_id_num").value)) args.IsValid = true;
+        else if (israeli_id_validation(document.getElementById("ctl00_ContentPlaceHolder1_id_num").value)) args.IsValid = true;
+        else return args.IsValid = false;
+    }
+
+    function pal_id_validation(id) {
+        var chars_arr = new Array();
+        var sum = 0;
+
+        if (id.length == 9 && !isNaN(id)) {
+            for (var i = 0; i < 8; i++) {
+                var multiply = 1;
+                if ((i % 2) == 0) multiply = 1;
+                else multiply = 2;
+
+                var temp = parseInt(id.substring(i, (i + 1))) * multiply;
+                var temp1 = temp;
+                var temp2 = 0;
+
+                if (temp >= 10) {
+                    temp1 = 1;
+                    temp2 = temp % 10;
+                }
+                sum += temp1 + temp2;
+            }
+            var res = parseInt(sum.toString().substring(1, 2));
+            var c_f_num;
+            if ((res % 10) == 0) c_f_num = 0;
+            else c_f_num = 10 - res;
+
+            var f_num = id.substring(i, (i + 1));
+            if (f_num == c_f_num) return true;
+            else return false;
+        }
+        else {
+            return false;
+        }
+        return false;
+    }  
+    
+
+    function israeli_id_validation(id) {
+        var Valid_id = true;
+        var InValid_id = false;
+
+        if (isNaN(id)) {
+            return InValid_id;
+        }
+
+        if (id.length < 9) {
+            for (var i = id.length + 1; i < 10; i++) {
+                id = "0" + id;
+            }
+        }
+
+        var mone = 0;
+        var incNum;
+        for (var i = 0; i < 9; i++) {
+            incNum = parseInt(id.substring(i, (i + 1)));
+            incNum = incNum * ((parseInt(id) % 2) + 1);
+            if (incNum > 9) incNum = incNum - 9;
+            mone += incNum;
+        }
+        //alert("Mone: " + (mone % 10))
+        if (mone % 10 == 0) return Valid_id;
+        else return InValid_id;
+    }
+</script>
+
+<!--Begin jQuery Fancybox-->
+<!-- Add mousewheel plugin (this is optional) -->
+	<script type="text/javascript" src="eservices/js/jquery.mousewheel-3.0.6.pack.js"></script>
+
+	<!-- Add fancyBox main JS and CSS files -->
+	<script type="text/javascript" src="eservices/source/jquery.fancybox.js?v=2.1.5"></script>
+	<link rel="stylesheet" type="text/css" href="eservices/source/jquery.fancybox.css?v=2.1.5" media="screen" />
+
+	<!-- Add Button helper (this is optional) -->
+	<link rel="stylesheet" type="text/css" href="eservices/source/helpers/jquery.fancybox-buttons.css?v=1.0.5" />
+	<script type="text/javascript" src="eservices/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+
+	<script type="text/javascript">
+	    $(document).ready(function() {
+	        /*
+	        *  Simple image gallery. Uses default settings
+	        */
+	        //{ content: "Billing System", type: "inline", fitToView: false, title: "Billing Copy", autoSize: false, minWidth: "450", width: "450", height: "250", maxWidth: "450" }
+	        $('.fancybox').fancybox({
+	            'width': 1000
+	        });
+
+	        $('.fancybox_payment').fancybox({
+	            'width': 1000,
+	            afterClose: function() { // USE THIS IT IS YOUR ANSWER THE KEY WORD IS "afterClose"
+	                if (document.getElementById("reloader").value == "1") parent.location.href = "index.aspx?reload=1&tab=2";
+	            }
+	        });
+
+	        /*
+	        *  Different effects
+	        */
+
+	        // Change title type, overlay closing speed
+	        $(".fancybox-effects-a").fancybox({
+	            width: 1200,
+	            helpers: {
+	                title: {
+	                    type: 'outside'
+	                },
+	                overlay: {
+	                    speedOut: 0
+	                }
+	            }
+	        });
+
+
+	    });
+	</script>
+	<style type="text/css">
+		.fancybox-custom .fancybox-skin {
+			box-shadow: 0 0 50px #222;
+		}
+
+</style>
+
+
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+  m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-66545858-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    <style>
+        .right_content{float:right;}
+        .left_content{float:left;}
+    </style>
+</head>
+<body>
+    <div id="shadow_div" style="display: none; position: fixed; width: 100%; height: 100%;
+        background-color: rgba(0, 0, 0, 0.52); z-index: 99999999;">
+    </div>
+    <form name="aspnetForm" method="post" action="Registration" onsubmit="javascript:return WebForm_OnSubmit();" id="aspnetForm">
+<div>
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__LASTFOCUS" id="__LASTFOCUS" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTE3NTQwNDM4MDEPZBYCZg9kFgICBA9kFgRmD2QWAmYPZBYEZg8QDxYGHg5EYXRhVmFsdWVGaWVsZAUHVHlwZV9pZB4NRGF0YVRleHRGaWVsZAULVHlwZV9kZXNfYXIeC18hRGF0YUJvdW5kZ2QQFQEe2YXYtNiq2LHZgyDYqNiu2Lcg2YPZh9ix2KjYp9ihFQEBMRQrAwFnFgFmZAIKDxAPFgYfAAUCaWQfAQUHYXJfbmFtZR8CZ2QQFQUV2YXYp9mE2YMg2KfZhNiu2K/ZhdipBNij2KgN2KPYriAvINij2K7YqhHYp9io2YYgLyDYp9io2YbYqQTYo9mFFQUBMQEyATMBNAE1FCsDBWdnZ2dnZGQCBA9kFgICAQ9kFgICBw8QDxYGHwAFB1R5cGVfaWQfAQULVHlwZV9kZXNfYXIfAmdkEBUBHtmF2LTYqtix2YMg2KjYrti3INmD2YfYsdio2KfYoRUBATEUKwMBZ2RkGAEFHl9fQ29udHJvbHNSZXF1aXJlUG9zdEJhY2tLZXlfXxYBBQxjdGwwMCRzdWJtaXQeAJKYPwiU7oxzNKn4waJMI0HU7w==" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+    theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="/WebResource.axd?d=KlI9D5kx8apcLEgYDcMHqSfZkcdGu7uZsCYhG5-XP5Bt-8pE8rGezuvtmaoe9ae6cqmpWDoghbgEvYq8cUtFnvIqEd01&amp;t=636271779297880478" type="text/javascript"></script>
+
+
+<script src="/WebResource.axd?d=bz_zn18FQ7jAYbp9KBRp6Uc2aLTZMAdbXreWMverBHlOoUnhJULvkmYuCkbjgBHvm4AsLDXUzHFaHhB377AGVkmwLUg1&amp;t=636271779297880478" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+function WebForm_OnSubmit() {
+if (typeof(ValidatorOnSubmit) == "function" && ValidatorOnSubmit() == false) return false;
+return true;
+}
+//]]>
+</script>
+
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="0E6B69E9" />
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWIwLtlo61BAL3/905AviQ99cMAuePlCgC84aD1wgCvO2j2woClYepsggCxcOwqgwCxMOwqgwCx8OwqgwCxsOwqgwCwcOwqgwCwruXWgLsi4eoAQKCoJpFAp2gmkUCks+wqwwCyuflyAkCmqjgqAgCsYXTtw8C2NallQICx9allQICyLmP+w4Cl/iuoQICyKDz7AQCkJCN3QkCvbT12AUCrJS92AwC34zglQsCzMS/gg8CndPYzAsC7KG82A0C9bD4mAIC7YG67gwCyP644gahd2vfyHeXgUv4hxHunOxNrzGgJQ==" />
+</div>
+    <!-- Top Area -->
+    <style>
+        .header_div
+        {
+            width: 100%;
+            position: relative;
+        }
+        @media (min-width: 250px)
+        {
+            .search
+            {
+                margin-top: 60px;
+                margin-right: 1px;
+            }
+            .header_div
+            {
+                height: 89px;
+            }
+            .navbar-inverse
+            {
+                height: 53px;
+            }
+        }
+        @media (min-width: 480px)
+        {
+            .header_div
+            {
+                height: 89px;
+            }
+            .navbar-inverse
+            {
+                height: 92.4px;
+            }
+        }
+        @media (min-width: 740px)
+        {
+            .search
+            {
+                margin-top: 15px;
+                margin-right: 1px;
+                z-index: -10;
+            }
+            .header_div
+            {
+                height: 170px;
+            }
+            .navbar-inverse
+            {
+                height: 115.4px;
+            }
+        }
+        @media (min-width: 768px)
+        {
+            .search
+            {
+                margin-top: 75px;
+                margin-right: 1px;
+            }
+        }
+        @media (min-width: 992px)
+        {
+            .search
+            {
+                margin-top: -18px;
+                margin-right: 1px;
+            }
+            .header_div
+            {
+                height: 250px;
+            }
+            .navbar-inverse
+            {
+                height: 132.4px;
+            }
+        }
+        @media (min-width: 1200px)
+        {
+            .search
+            {
+                margin-right: 114px;
+            }
+        }
+    </style>
+    <div class="header_div" align="center">
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+        <div class="container">
+		<div style="position: absolute;margin-top: 35px;z-index:50;">
+			<ul class="nav navbar-nav" >
+			<li><a href="English" class="en_link">English</a></li>		
+			</ul>
+		</div>
+		<div style="position:relative;">
+		    <a href="index.aspx" ><img class="img-responsive" src="images/header.png" /></a>
+		</div>
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>            
+        </div>
+	
+		  <!-- /.navbar-header -->
+        </div>
+		<!-- /.container -->
+       
+		<div  style="background-color:#905F00" align=center >
+         
+		<div class="container2" >
+		 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <script type="text/javascript">
+                $(document).ready(function() {
+
+                    $('.menu_td').stop().hover(function() {
+                        $('#' + this.id + ' .mid_menu').stop().slideDown(500);
+                    }, function() {
+                        $('#' + this.id + ' .mid_menu').stop().slideUp(300);
+                    });
+
+                    $('.drop_td').stop().hover(function() {
+                        $('#' + this.id + ' .mid_mid_menu').stop().slideDown(500);
+                    }, function() {
+                        $('#' + this.id + ' .mid_mid_menu').stop().slideUp(300);
+                    });
+
+                });
+            </script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".navbar li").hover(function() {
+            $("#" + this.id + " .drop-nav").fadeIn("slow");
+        }, function() {
+            $("#" + this.id + " .drop-nav").fadeOut("fast");
+        });
+    });
+</script>
+<ul class="nav navbar-nav navbar-right">
+    <li ><a href='index.aspx' style='padding:0px;margin:0px;' ><img src='images/home.png' alt='' ></a></li><li id='td0'  class='drop_list' ><a href='ar_page.aspx?id=OFLvDqa28552590aOFLvDq' target='_self' class='top_menu' >الشركة</a><ul class='drop-nav' ><li><a href='ar_page.aspx?id=zeERj9a19986813azeERj9'>نشأة الشركة</a></li><li><a href='ar_page.aspx?id=14LgENa20938566a14LgEN'>كلمة المدير العام</a></li><li><a href='ar_page.aspx?id=nbt5Uqa21890319anbt5Uq'>رسالة الشركة ورؤيتها</a></li><li><a href='ar_page.aspx?id=jr0usya22842072ajr0usy'>مجلس الإدارة</a></li><li><a href='ar_page.aspx?id=MWvnN0a23793825aMWvnN0'>المساهمون</a></li><li><a href='ar_page.aspx?id=e2c5Cja18083307ae2c5Cj'>مركز التدريب</a></li></ul></li><li id='td1'  ><a href='http://www.jdeco.ps/Ar/Shareholders/Stocks.aspx' target='_self' class='top_menu' >المساهمون</a></li><li id='td2'  class='drop_list' ><a href='ar_category.aspx?id=Q2PH42a2855259aQ2PH42' target='_self' class='top_menu' >المشتركين</a><ul class='drop-nav' ><li><a href='userfiles/file/FAQ.pdf'>أسئلة شائعة</a></li><li><a href='ar_page.aspx?id=sNGL1fa48539403asNGL1f'>المتضررين</a></li></ul></li><li id='td3'  class='drop_list' ><a href='ar_page.aspx?id=zRZbgFa61863945azRZbgF' target='_self' class='top_menu' >الجودة</a><ul class='drop-nav' ><li><a href='ar_page.aspx?id=RTwb87a1289625315aRTwb87'>سياسة الجودة</a></li></ul></li><li id='td4'  ><a href='ar_folder.aspx?id=FWg0CFa23793825aFWg0CF' target='_self' class='top_menu' >تقارير</a></li><li id='td5'  ><a href='ar_category.aspx?id=rBwBV8a26649084arBwBV8' target='_self' class='top_menu' >إعلانات</a></li><li id='td6'  class='drop_list' ><a href='' target='_self' class='top_menu' >إرشادات</a><ul class='drop-nav' ><li><a href='ar_category.aspx?id=39WJuZa18083307a39WJuZ'>السلامة</a></li><li><a href='ar_category.aspx?id=Wi7r0Da19035060aWi7r0D'>الوقاية</a></li><li><a href='ar_category.aspx?id=OR74i4a19986813aOR74i4'>ترشيد استهلاك الطاقة</a></li><li><a href='ar_category.aspx?id=9gLDK4a20938566a9gLDK4'>كم يكلفنا ذلك؟</a></li><li><a href='ar_page.aspx?id=YvUXEBa47587650aYvUXEB'>الإسعاف الأولي</a></li><li><a href='ar_category.aspx?id=DFwfvQa51394662aDFwfvQ'>دليل الاستخدام</a></li></ul></li><li id='td7'  ><a href='ar_category.aspx?id=D4dkKsa49491156aD4dkKs' target='_self' class='top_menu' >الوظائف</a></li><li id='td8'  class='drop_list' ><a href='' target='_self' class='top_menu' >اتصل بنا</a><ul class='drop-nav' ><li><a href='ar_page.aspx?id=okz6kba24745578aokz6kb'>القدس</a></li><li><a href='ar_page.aspx?id=4H450ka25697331a4H450k'>رام الله</a></li></ul></li><li id='td9'  ><a href='ar_gallery.aspx' target='_self' class='top_menu' >ألبوم الصور </a></li>
+</ul>         
+</div>
+</div>
+</div>
+</nav>
+    </div>
+    <!-- Top Area -->
+    <!-- #####################  Content  ################### -->
+    <!--Login -->
+    <link rel="stylesheet" type="text/css" href="login/css/style.css" />
+    <!-- Login -->
+    <div align="center" style="margin-top: -15px;">
+        <div class="container" style="font-family: 'HelveticaNeue';">
+            <div class="row">
+                <!-- Blog Post Content Column -->
+                <div class="col-xs-12 col-sm-8 left_content home-area" style="margin-top: 15px;">
+                    
+  
+
+<div align="center" class="forms">
+    <div class="title" align="center" style="width:100%;text-align:center">نموذج التسجيل للخدمات الالكتروني</div><br /><br />
+    <div class="row">
+        <div class="col-sm-2" ></div>
+        <div class="col-xs-12 col-md-8 " ></div>
+        <div class="col-sm-2" ></div>
+    </div>
+    
+    <div id="ctl00_ContentPlaceHolder1_pnl_reg" onkeypress="javascript:return WebForm_FireDefaultButton(event, 'ctl00_ContentPlaceHolder1_register_Click')">
+	    
+    <div align="center" style="margin-bottom:15px;">
+        <font class="title1">نوع التسجيل:</font>
+        &nbsp;&nbsp;
+        <select name="ctl00$ContentPlaceHolder1$reg_type" onchange="javascript:setTimeout('__doPostBack(\'ctl00$ContentPlaceHolder1$reg_type\',\'\')', 0)" id="ctl00_ContentPlaceHolder1_reg_type" class="input_txt">
+		<option selected="selected" value="1">مشترك بخط كهرباء</option>
+
+	</select>
+    </div>
+    <div class="row text-right" style="padding-right:15px;">    
+    <div class="row">
+        <div class="col-xs-12 col-sm-3" >رقم الخدمة:</div>
+        <div class="col-xs-12 col-sm-9" >
+            <script type="text/javascript" >
+                $(document).ready(function() {
+                    $(".tooltip_img1").hover(function() {
+                        $("#tooltip_div1").stop().fadeIn("slow");
+                    }, function() {
+                        $("#tooltip_div1").stop().fadeOut("fast");
+                    });
+                });
+                $(document).ready(function() {
+                    $(".tooltip_img2").hover(function() {
+                        $("#tooltip_div2").stop().fadeIn("slow");
+                    }, function() {
+                        $("#tooltip_div2").stop().fadeOut("fast");
+                    });
+                });
+                $(document).ready(function() {
+                    $(".pwd_tooltip").hover(function() {
+                        $("#pwd_div").stop().fadeIn("slow");
+                    }, function() {
+                        $("#pwd_div").stop().fadeOut("fast");
+                    });
+                });
+            </script>      
+            <input name="ctl00$ContentPlaceHolder1$service_num" type="text" id="ctl00_ContentPlaceHolder1_service_num" class="input_txt" placeholder="آخر 9 أرقام من اليسار X/XXX/XXXXX/XXX بدون /" style="width:70%;" />
+            <span id="ctl00_ContentPlaceHolder1_RequiredFieldValidator1" class="required_validator" ControlToValidae="service_num" style="color:Red;visibility:hidden;">*</span>
+                <img src="images/help.png" class="tooltip_img1" style="width:100%;vertical-align:middle;max-width:30px;cursor:pointer;" >
+            <div style="position:absolute;z-index:1000000;display:none;left:0px;min-width:300px;max-width:400px;" id="tooltip_div1"  ><img src="images/tooltip2.png" style="width:100%;" /></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-3" >وصف الخدمة:</div>
+        <div class="col-xs-12 col-sm-7" >
+            <input name="ctl00$ContentPlaceHolder1$service_desc" type="text" id="ctl00_ContentPlaceHolder1_service_desc" class="input_txt" placeholder="مثلا (بيت العائلة,المحل التجاري,الدكان)" style="width:95%;" />
+            <span id="ctl00_ContentPlaceHolder1_RequiredFieldValidator16" class="required_validator" style="color:Red;visibility:hidden;">*</span>
+            <span id="ctl00_ContentPlaceHolder1_CustomValidator2" style="color:Red;color:red;display:none;">وصف الخدمة يجب أن لا يتعدى ال 20 حرف<br></span> 
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-xs-12 col-sm-3" >الأسم الأول:</div>
+        <div class="col-xs-12 col-sm-7" >
+            <input name="ctl00$ContentPlaceHolder1$first_name" type="text" id="ctl00_ContentPlaceHolder1_first_name" class="input_txt" style="width:95%;" />
+            <span id="ctl00_ContentPlaceHolder1_RequiredFieldValidator2" class="required_validator" style="color:Red;visibility:hidden;">*</span>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-xs-12 col-sm-3" >الأسم الأخير:</div>
+        <div class="col-xs-12 col-sm-7" >
+            <input name="ctl00$ContentPlaceHolder1$last_name" type="text" id="ctl00_ContentPlaceHolder1_last_name" class="input_txt" style="width:95%;" />
+            <span id="ctl00_ContentPlaceHolder1_RequiredFieldValidator17" class="required_validator" style="color:Red;visibility:hidden;">*</span>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-xs-12 col-sm-3" >صلة المشترك بالخدمة:</div>
+        <div class="col-xs-12 col-sm-7" >
+            <select name="ctl00$ContentPlaceHolder1$service_relation" id="ctl00_ContentPlaceHolder1_service_relation" class="input_txt" style="width:95%;padding-right:10px;">
+		<option value="1">مالك الخدمة</option>
+		<option value="2">أب</option>
+		<option value="3">أخ / أخت</option>
+		<option value="4">ابن / ابنة</option>
+		<option value="5">أم</option>
+
+	</select>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-xs-12 col-sm-3" >رقم الهوية:</div>
+        <div class="col-xs-12 col-sm-7" >
+            <input name="ctl00$ContentPlaceHolder1$id_num" type="text" id="ctl00_ContentPlaceHolder1_id_num" class="input_txt" style="width:95%;" />
+            <span id="ctl00_ContentPlaceHolder1_CustomValidator1" style="color:Red;display:none;">رقم هوية خاطئ<br></span>                
+            <span id="ctl00_ContentPlaceHolder1_RequiredFieldValidator4" class="required_validator" style="color:Red;visibility:hidden;">*</span>
+        </div>
+    </div>
+    
+    
+    <div class="row">
+        <div class="col-xs-12 col-sm-3" >رقم الهاتف النقال:</div>
+        <div class="col-xs-12 col-sm-7" >
+            <input name="ctl00$ContentPlaceHolder1$mobile" type="text" id="ctl00_ContentPlaceHolder1_mobile" class="input_txt" style="width:95%;" />
+            <span id="ctl00_ContentPlaceHolder1_RequiredFieldValidator6" class="required_validator" style="color:Red;visibility:hidden;">*</span>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-xs-12 col-sm-3" >طريقة الدفع:</div>
+        <div class="col-xs-12 col-sm-7" >
+            <table id="ctl00_ContentPlaceHolder1_pay_method" class="radio_list" border="0">
+		<tr>
+			<td><input id="ctl00_ContentPlaceHolder1_pay_method_0" type="radio" name="ctl00$ContentPlaceHolder1$pay_method" value="0" onclick="normal(0);" /><label for="ctl00_ContentPlaceHolder1_pay_method_0">دفع عادي</label></td><td><input id="ctl00_ContentPlaceHolder1_pay_method_1" type="radio" name="ctl00$ContentPlaceHolder1$pay_method" value="1" onclick="normal(1);" /><label for="ctl00_ContentPlaceHolder1_pay_method_1">دفع مسبق</label></td>
+		</tr>
+	</table>
+            <span id="ctl00_ContentPlaceHolder1_RequiredFieldValidator10" class="required_validator" style="color:Red;display:none;">*</span>
+        </div>
+    </div>
+    
+    <div class="row" id="bill_no_div" style="display:block;">
+        <div class="col-xs-12 col-sm-3" >رقم أخر فاتورة:</div>
+        <div class="col-xs-12 col-sm-9" >         
+            <input name="ctl00$ContentPlaceHolder1$last_bill" type="text" id="ctl00_ContentPlaceHolder1_last_bill" class="input_txt" style="width:70%;" />
+            <span id="ctl00_ContentPlaceHolder1_RequiredFieldValidator5" class="required_validator" style="color:Red;visibility:hidden;">*</span>
+            <img src="images/help.png" class="tooltip_img2" style="width:100%;vertical-align:middle;max-width:30px;cursor:pointer;" >
+            <div style="position:absolute;z-index:1000000;display:none;left:0px;min-width:300px;max-width:400px;" id="tooltip_div2"  ><img src="images/tooltip1.png" style="width:100%;" /></div>
+        </div>
+    </div>
+    
+    
+    <div class="row" id="last_row" style="display:none">
+        <div class="col-xs-12 col-sm-3" >تاريخ آخر دفعة:</div>
+        <div class="col-xs-12 col-sm-7" >
+            <input name="ctl00$ContentPlaceHolder1$lastchargedate" type="text" id="ctl00_ContentPlaceHolder1_lastchargedate" class="input_txt" style="width:95%;" />
+            <span id="ctl00_ContentPlaceHolder1_RequiredFieldValidator7" class="required_validator" style="color:Red;display:none;">*</span> 
+        </div>
+        <div class="col-xs-12 col-sm-2"></div>
+        
+        <div class="col-xs-12 col-sm-3" >رقم العداد:</div>
+        <div class="col-xs-12 col-sm-7" >
+            <input name="ctl00$ContentPlaceHolder1$meter_no" type="text" id="ctl00_ContentPlaceHolder1_meter_no" class="input_txt" style="width:95%;" />
+            <span id="ctl00_ContentPlaceHolder1_RequiredFieldValidator8" class="required_validator" style="color:Red;display:none;">*</span> 
+        </div>
+        
+    </div>
+    
+    <div class="row">
+        <div class="col-xs-12 col-sm-3" >نوع الملكية:</div>
+        <div class="col-xs-12 col-sm-7" >
+            <table id="ctl00_ContentPlaceHolder1_property_type" class="radio_list" border="0">
+		<tr>
+			<td><input id="ctl00_ContentPlaceHolder1_property_type_0" type="radio" name="ctl00$ContentPlaceHolder1$property_type" value="0" /><label for="ctl00_ContentPlaceHolder1_property_type_0">بيت ملك</label></td><td><input id="ctl00_ContentPlaceHolder1_property_type_1" type="radio" name="ctl00$ContentPlaceHolder1$property_type" value="1" /><label for="ctl00_ContentPlaceHolder1_property_type_1">بيت ايجار</label></td>
+		</tr>
+	</table>
+            <span id="ctl00_ContentPlaceHolder1_RequiredFieldValidator11" class="required_validator" style="color:Red;display:none;">*</span>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-xs-12 col-sm-3" >البريد الالكتروني (اسم المستخدم):</div>
+        <div class="col-xs-12 col-sm-7" >
+            <input name="ctl00$ContentPlaceHolder1$email" type="text" id="ctl00_ContentPlaceHolder1_email" class="input_txt" style="width:95%;" />
+            <span id="ctl00_ContentPlaceHolder1_RegularExpressionValidator1" style="color:Red;display:none;">البريد الالكتروني خاطئ</span>
+            <span id="ctl00_ContentPlaceHolder1_RequiredFieldValidator9" class="required_validator" style="color:Red;display:none;">*</span>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-xs-12 col-sm-3" >كلمة المرور:</div>
+        <div class="col-xs-12 col-sm-7" >
+            <input name="ctl00$ContentPlaceHolder1$password" type="password" id="ctl00_ContentPlaceHolder1_password" class="input_txt" style="width:95%;" />
+            <span id="ctl00_ContentPlaceHolder1_RequiredFieldValidator12" class="required_validator" style="color:Red;display:none;">*</span>
+            <span id="ctl00_ContentPlaceHolder1_RegularExpressionValidator4" style="color:Red;display:none;"><div style='direction:ltr;text-align:left;' ><br>Weak password! Password must contain the following:<Br>1- at least 1 character a-z.<br>2- at least one number 0-9.<br>3- length of password between 6-15 characters</div></span>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-xs-12 col-sm-3" >تأكيد كلمة المرور:</div>
+        <div class="col-xs-12 col-sm-7" >
+             <input name="ctl00$ContentPlaceHolder1$c_password" type="password" id="ctl00_ContentPlaceHolder1_c_password" class="input_txt" style="width:95%;" />
+            <span id="ctl00_ContentPlaceHolder1_RequiredFieldValidator13" class="required_validator" style="color:Red;display:none;">*</span>
+            <span id="ctl00_ContentPlaceHolder1_CompareValidator1" style="color:Red;display:none;"><br>كلمة المرور غير متطابقة!</span>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-xs-12 col-sm-3" >بريد الكتروني اضافي:</div>
+        <div class="col-xs-12 col-sm-7" >
+             <span id="ctl00_ContentPlaceHolder1_RegularExpressionValidator2" style="color:Red;display:none;">البريد الالكتروني خاطئ</span>            
+            <input name="ctl00$ContentPlaceHolder1$alert_email" type="text" id="ctl00_ContentPlaceHolder1_alert_email" class="input_txt" style="width:95%;" />
+        </div>
+    </div>
+    
+     <div class="row">
+        <div class="col-xs-12 col-sm-3" >رمز الحماية:</div>
+        <div class="col-xs-12 col-sm-7" style="direction:ltr;" >
+            <span id="ctl00_ContentPlaceHolder1_RequiredFieldValidator99" class="required_validator" style="color:Red;display:none;">*</span>
+            <img src='random/3.gif' width=14 align=absmiddle border='0'><img src='random/0.gif' width=14 align=absmiddle border='0'><img src='random/8.gif' width=14 align=absmiddle border='0'><img src='random/2.gif' width=14 align=absmiddle border='0'>
+            <input name="ctl00$ContentPlaceHolder1$random" type="text" id="ctl00_ContentPlaceHolder1_random" class="input_txt" type="text" style="width:50%;" />             
+        </div>
+    </div>  
+    
+    <div class="row text-center">
+        <div class="col-xs-12" ><input type="submit" name="ctl00$ContentPlaceHolder1$register_Click" value="تسجيل" onclick="validate_reg();" id="ctl00_ContentPlaceHolder1_register_Click" class="btn btn-primary" style="width:100px;" /></div>
+        
+    </div>
+    </div>
+    
+</div>
+    
+</div>  
+
+                </div>
+                <!-- Blog Sidebar Widgets Column -->
+                <div class="col-xs-12 col-sm-4 right_content" style="margin-top: 15px;">
+                    <!-- Blog Search Well -->
+                    <div class="well">
+                        <div class="row">
+                            <div class="col-xs-12 text adv-area">
+                                <span id="ctl00_lbl_right_adv1"></span></div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12" style="padding-bottom: 0px;">
+                            <div style="row">
+                                <div id="ctl00_pnl_search" onkeypress="javascript:return WebForm_FireDefaultButton(event, 'ctl00_s_button')">
+	
+                                    <input name="ctl00$searchkey" type="text" id="ctl00_searchkey" placeholder="كلمة البحث" style="padding: 0px;
+                                        margin: 0px; border: solid 1px #edb40e; width: 90%; text-indent: 10px; text-align: right;
+                                        padding-top: 5px;" />
+                                    <span id="ctl00_RequiredFieldValidator1" style="color:Red;display:none;">*</span>
+                                    <input type="submit" name="ctl00$s_button" value="بحث" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$s_button&quot;, &quot;&quot;, true, &quot;s_group&quot;, &quot;&quot;, false, false))" id="ctl00_s_button" style="display: none;" />
+                                
+</div>
+                            </div>
+                            <hr style="background-color: #b4b4b4; height: 3px; border: none;">
+
+                            <script type="text/javascript">
+                                $(document).ready(function() {
+                                    $(".login_box").hover(function() {
+                                        $("#login_header").addClass("swing");
+                                    }, function() {
+                                        $("#login_header").removeClass("swing");
+                                    });
+                                });
+                            </script>
+
+                            <span id="ctl00_lbl_welcome"></span>
+                            <div id="ctl00_pnl_login_area" onkeypress="javascript:return WebForm_FireDefaultButton(event, 'ctl00_submit')">
+	
+                                <h4 class="animated right_lbl" id="login_header">
+                                    تسجيل الدخول</h4>
+                                <div class="main login_box" style="background-color: #905f00">
+                                    <div id="ctl00_pnl_login" class="submit">
+		
+                                        <div class="form-1">
+                                            <span id="ctl00_lbl_login" style="color: #F4520B; text-align: center;"></span>
+                                            <p class="field">
+                                                <input name="ctl00$username" type="text" id="ctl00_username" placeholder="البريد الالكتروني" />
+                                            </p>
+                                            <p class="field">
+                                                <input name="ctl00$password" type="password" id="ctl00_password" placeholder="كلمة المرور" />
+                                            </p>
+                                            <p class="field">
+                                                <!--<asp:ListItem Value="" Text = "نوع المستخدم" ></asp:ListItem>-->
+                                                <select name="ctl00$reg_type" id="ctl00_reg_type" class="input_txt">
+			<option value="1">مشترك بخط كهرباء</option>
+
+		</select>
+                                            </p>
+                                            <p class="submit">
+                                                <!--<button type="submit" name="submit"><i class="glyphicon glyphicon-chevron-left"></i></button>-->
+                                                <input type="image" name="ctl00$submit" id="ctl00_submit" src="images/circle.png" style="border-width:0px;" />
+                                            </p>
+                                            <hr style="background-color: #b4b4b4; height: 3px; border: none;" />
+                                            <a href="Registration" style="color: White; width: 90%; max-width: 200px; margin: 3px;
+                                                background-color: #EDB105;" class="btn btn-primary"><span class="glyphicon glyphicon-user">
+                                                </span>&nbsp;&nbsp;مشترك جديد</a><br />
+                                            <a href="Forget" style="color: White; width: 90%; max-width: 200px; margin: 3px;
+                                                background-color: #EDB105;" class="btn btn-primary"><span class="glyphicon glyphicon-lock">
+                                                </span>&nbsp;&nbsp;نسيت كلمة المرور</a><br />
+                                            <a href="Activate" style="color: White; width: 90%; max-width: 200px; margin: 3px;
+                                                background-color: #EDB105;" class="btn btn-primary"><span class="glyphicon glyphicon-ok">
+                                                </span>&nbsp;&nbsp;تفعيل الحساب&nbsp;</a>
+                                        </div>
+                                    
+	</div>
+                                </div>
+                            
+</div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top: 0px;">
+                    
+                    <!-- Custom Logo--> 
+                    <!--   
+                    <section class="main">
+					    <div style="padding:15px;">
+					    <hr style="background-color: #b4b4b4;height: 3px;border: none;"/>
+					      <a href="http://www.pcbs.gov.ps/" target="_blank">
+					        <img class="android-app img-responsive" src="userfiles/image/statistics.png" width="260" height="90" />
+					      </a>
+					    </div>
+					</section>
+					-->
+                     <section class="main">
+					    <div style="padding:15px;">
+					    
+					    <hr style="background-color: #b4b4b4;height: 3px;border: none;"/>
+					    <div style="padding:10px;"><label class="right_lbl">حمل تطبيق شركة كهرباء القدس</label></div>
+					      <a href="https://play.google.com/store/apps/details?id=net.JDECo.JDECoCApp" target="_blank">
+					        <img class="android-app img-responsive" src="images/android_app.png" width="328" height="90" />
+					      </a>
+					    </div>
+					</section>
+					
+					
+					
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 " style="margin-top: 0px;">
+                            <hr style="background-color: #b4b4b4; height: 3px; border: none; " />
+                            <section class="main">
+					    <div class="col-xs-6" style="margin-top:0px;">
+					        <a href="Report-Crash" ><img src="images/report_crash1.png" class="android-app img-responsive"  /></a>
+					    </div>
+					    <div class="col-xs-6" style="margin-top:0px;">
+					        <a href="Pay?payment=1" ><img src="images/pay_bills.png" class="android-app img-responsive"  /></a>
+					    </div>
+											
+					</section>
+                            <hr style="background-color: #b4b4b4; height: 3px; border: none; margin-bottom: 15px;" />
+                        </div>
+                        <section class="main ">
+						<div class="row right_lbl"><div class="col-xs-12">الاتصال بنا</div></div>						
+						<div class="col-xs-12" style="margin-top:0px;">
+						<h1><span class="animated flipInX label label-default" style="background-color:#EDB105;height:40px;width:90%;"><a  href="tel:1-800-211-511"><font color="white" style="font-size:18px;font-family:'HelveticaNeueBold';">1-800-211-511&nbsp;<span class="glyphicon glyphicon-earphone"></span></font></a></span></h1>
+						</div>
+						<div style="height:10px;width:100%;"></div>
+						
+						<div class="row" style="margin-top:60px;"></div>
+						
+						<h4 class="right_lbl">JDECO على شبكات التواصل الاجتماعية</h4>
+						<h4    style="margin-top: 21px;">
+						<a style="padding-left: 10px;padding-right: 20px;" href="https://www.facebook.com/jdecops" target="_blank"><span class="social-btn label label-default" style="padding-bottom:10px;"><i class="fa fa-facebook fa-2x"></i></span></a> <a style="padding-left: 10px;padding-right: 20px;" href="https://www.youtube.com/channel/UCPXaxy3jvvGGjtY4gS8_dcA/videos?view_as=subscriber" target="_blank"><span class="social-btn label label-default" style="padding-bottom:10px;background-color:#FF0000 !important"><i class="fa fa-youtube fa-2x"></i></span></a> <a href="mailto:info@jdeco.net" style="padding-right: 15px;"><span class="social-btn label label-default" style="padding-bottom:10px;"><i class="fa fa-envelope-o fa-2x"></i></span></a>    <!--<a href="#" style="padding-left: 10px;"><span class="label label-default"><i class="fa fa-twitter fa-2x"></i></span></a>      <a href="#" style="padding-left: 10px;"><span class="label label-default"><i class="fa fa-youtube fa-2x"></i></span></a>-->
+						</h4>
+					</section>
+                        <!--
+					<section class="main" >
+					    <div style="padding:15px;">
+					    
+					    <hr style="background-color: #b4b4b4;height: 3px;border: none;"/>
+					    <div style="padding:10px;"><label class="right_lbl">حمل تطبيق شركة كهرباء القدس</label></div>
+					      <a href="https://play.google.com/store/apps/details?id=net.JDECo.JDECoCApp" target="_blank">
+					        <img class="android-app img-responsive" src="images/android_app.png" width="328" height="90" />
+					      </a>
+					    </div>
+					</section>
+					-->
+                        <div class="row">
+                            <div class="col-xs-12 text adv-area">
+                                <span id="ctl00_lbl_right_adv2"></span></div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <!-- /.row -->
+        </div>
+    </div>
+    <!-- ########### End Page content ######### -->
+    <!-- Footer -->
+    <div class="clearfix container-fluid" style="clear: both;">
+        <div class="bottom-row clearfix row" style="">
+        </div>
+        <div class="row text-center">
+            Copyright &copy; JDECO
+            2019</div>
+        <div class="row" style="background-image: url('images/footer.png'); height: 70px;
+            margin-bottom: 0px; margin-top: 14px;">
+            <div align="center" class="row" style="margin-top: 20px; margin-left: 0px;">
+                <div style="width: 170px; height: 30px; text-align: center; padding-right: 80px;
+                    background-image: url(images/counter.png); background-repeat: no-repeat; background-position: center;
+                    color: #B36E02; font-size: 18px; padding-top: 6px; font-family: 'HelveticaNeueBold';">
+                    <div style="float: left; width: 90px;">
+                        13312797</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <!--
+<link rel="stylesheet" href="libraries/scrolltotop/scrollToTop.css">
+<script>    window.jQuery || document.write('<script src="js/jquery.js"><\/script>')</script>
+<script src="libraries/scrolltotop/jquery-scrollToTop.js"></script>
+<script type="text/javascript">
+	$(document).ready(function($){
+		$('body').scrollToTop({skin: 'cycle'});
+	});
+</script>-->
+    
+<script type="text/javascript">
+//<![CDATA[
+var Page_Validators =  new Array(document.getElementById("ctl00_ContentPlaceHolder1_RequiredFieldValidator1"), document.getElementById("ctl00_ContentPlaceHolder1_RequiredFieldValidator16"), document.getElementById("ctl00_ContentPlaceHolder1_CustomValidator2"), document.getElementById("ctl00_ContentPlaceHolder1_RequiredFieldValidator2"), document.getElementById("ctl00_ContentPlaceHolder1_RequiredFieldValidator17"), document.getElementById("ctl00_ContentPlaceHolder1_CustomValidator1"), document.getElementById("ctl00_ContentPlaceHolder1_RequiredFieldValidator4"), document.getElementById("ctl00_ContentPlaceHolder1_RequiredFieldValidator6"), document.getElementById("ctl00_ContentPlaceHolder1_RequiredFieldValidator10"), document.getElementById("ctl00_ContentPlaceHolder1_RequiredFieldValidator5"), document.getElementById("ctl00_ContentPlaceHolder1_RequiredFieldValidator7"), document.getElementById("ctl00_ContentPlaceHolder1_RequiredFieldValidator8"), document.getElementById("ctl00_ContentPlaceHolder1_RequiredFieldValidator11"), document.getElementById("ctl00_ContentPlaceHolder1_RegularExpressionValidator1"), document.getElementById("ctl00_ContentPlaceHolder1_RequiredFieldValidator9"), document.getElementById("ctl00_ContentPlaceHolder1_RequiredFieldValidator12"), document.getElementById("ctl00_ContentPlaceHolder1_RegularExpressionValidator4"), document.getElementById("ctl00_ContentPlaceHolder1_RequiredFieldValidator13"), document.getElementById("ctl00_ContentPlaceHolder1_CompareValidator1"), document.getElementById("ctl00_ContentPlaceHolder1_RegularExpressionValidator2"), document.getElementById("ctl00_ContentPlaceHolder1_RequiredFieldValidator99"), document.getElementById("ctl00_RequiredFieldValidator1"));
+//]]>
+</script>
+
+<script type="text/javascript">
+//<![CDATA[
+var ctl00_ContentPlaceHolder1_RequiredFieldValidator1 = document.all ? document.all["ctl00_ContentPlaceHolder1_RequiredFieldValidator1"] : document.getElementById("ctl00_ContentPlaceHolder1_RequiredFieldValidator1");
+ctl00_ContentPlaceHolder1_RequiredFieldValidator1.controltovalidate = "ctl00_ContentPlaceHolder1_service_num";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator1.errormessage = "*";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator1.validationGroup = "Group1";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator1.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator1.initialvalue = "";
+var ctl00_ContentPlaceHolder1_RequiredFieldValidator16 = document.all ? document.all["ctl00_ContentPlaceHolder1_RequiredFieldValidator16"] : document.getElementById("ctl00_ContentPlaceHolder1_RequiredFieldValidator16");
+ctl00_ContentPlaceHolder1_RequiredFieldValidator16.controltovalidate = "ctl00_ContentPlaceHolder1_service_desc";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator16.errormessage = "*";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator16.validationGroup = "Group1";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator16.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator16.initialvalue = "";
+var ctl00_ContentPlaceHolder1_CustomValidator2 = document.all ? document.all["ctl00_ContentPlaceHolder1_CustomValidator2"] : document.getElementById("ctl00_ContentPlaceHolder1_CustomValidator2");
+ctl00_ContentPlaceHolder1_CustomValidator2.controltovalidate = "ctl00_ContentPlaceHolder1_service_desc";
+ctl00_ContentPlaceHolder1_CustomValidator2.errormessage = "وصف الخدمة يجب أن لا يتعدى ال 20 حرف<br>";
+ctl00_ContentPlaceHolder1_CustomValidator2.display = "Dynamic";
+ctl00_ContentPlaceHolder1_CustomValidator2.validationGroup = "Group1";
+ctl00_ContentPlaceHolder1_CustomValidator2.evaluationfunction = "CustomValidatorEvaluateIsValid";
+ctl00_ContentPlaceHolder1_CustomValidator2.clientvalidationfunction = "desc_validation";
+var ctl00_ContentPlaceHolder1_RequiredFieldValidator2 = document.all ? document.all["ctl00_ContentPlaceHolder1_RequiredFieldValidator2"] : document.getElementById("ctl00_ContentPlaceHolder1_RequiredFieldValidator2");
+ctl00_ContentPlaceHolder1_RequiredFieldValidator2.controltovalidate = "ctl00_ContentPlaceHolder1_first_name";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator2.errormessage = "*";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator2.validationGroup = "Group1";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator2.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator2.initialvalue = "";
+var ctl00_ContentPlaceHolder1_RequiredFieldValidator17 = document.all ? document.all["ctl00_ContentPlaceHolder1_RequiredFieldValidator17"] : document.getElementById("ctl00_ContentPlaceHolder1_RequiredFieldValidator17");
+ctl00_ContentPlaceHolder1_RequiredFieldValidator17.controltovalidate = "ctl00_ContentPlaceHolder1_last_name";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator17.errormessage = "*";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator17.validationGroup = "Group1";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator17.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator17.initialvalue = "";
+var ctl00_ContentPlaceHolder1_CustomValidator1 = document.all ? document.all["ctl00_ContentPlaceHolder1_CustomValidator1"] : document.getElementById("ctl00_ContentPlaceHolder1_CustomValidator1");
+ctl00_ContentPlaceHolder1_CustomValidator1.controltovalidate = "ctl00_ContentPlaceHolder1_id_num";
+ctl00_ContentPlaceHolder1_CustomValidator1.errormessage = "رقم هوية خاطئ<br>";
+ctl00_ContentPlaceHolder1_CustomValidator1.display = "Dynamic";
+ctl00_ContentPlaceHolder1_CustomValidator1.validationGroup = "Group1";
+ctl00_ContentPlaceHolder1_CustomValidator1.evaluationfunction = "CustomValidatorEvaluateIsValid";
+ctl00_ContentPlaceHolder1_CustomValidator1.clientvalidationfunction = "id_validation";
+var ctl00_ContentPlaceHolder1_RequiredFieldValidator4 = document.all ? document.all["ctl00_ContentPlaceHolder1_RequiredFieldValidator4"] : document.getElementById("ctl00_ContentPlaceHolder1_RequiredFieldValidator4");
+ctl00_ContentPlaceHolder1_RequiredFieldValidator4.controltovalidate = "ctl00_ContentPlaceHolder1_id_num";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator4.errormessage = "*";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator4.validationGroup = "Group1";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator4.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator4.initialvalue = "";
+var ctl00_ContentPlaceHolder1_RequiredFieldValidator6 = document.all ? document.all["ctl00_ContentPlaceHolder1_RequiredFieldValidator6"] : document.getElementById("ctl00_ContentPlaceHolder1_RequiredFieldValidator6");
+ctl00_ContentPlaceHolder1_RequiredFieldValidator6.controltovalidate = "ctl00_ContentPlaceHolder1_mobile";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator6.errormessage = "*";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator6.validationGroup = "Group1";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator6.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator6.initialvalue = "";
+var ctl00_ContentPlaceHolder1_RequiredFieldValidator10 = document.all ? document.all["ctl00_ContentPlaceHolder1_RequiredFieldValidator10"] : document.getElementById("ctl00_ContentPlaceHolder1_RequiredFieldValidator10");
+ctl00_ContentPlaceHolder1_RequiredFieldValidator10.controltovalidate = "ctl00_ContentPlaceHolder1_pay_method";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator10.errormessage = "*";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator10.display = "Dynamic";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator10.validationGroup = "Group1";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator10.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator10.initialvalue = "";
+var ctl00_ContentPlaceHolder1_RequiredFieldValidator5 = document.all ? document.all["ctl00_ContentPlaceHolder1_RequiredFieldValidator5"] : document.getElementById("ctl00_ContentPlaceHolder1_RequiredFieldValidator5");
+ctl00_ContentPlaceHolder1_RequiredFieldValidator5.controltovalidate = "ctl00_ContentPlaceHolder1_last_bill";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator5.errormessage = "*";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator5.validationGroup = "Group2";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator5.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator5.initialvalue = "";
+var ctl00_ContentPlaceHolder1_RequiredFieldValidator7 = document.all ? document.all["ctl00_ContentPlaceHolder1_RequiredFieldValidator7"] : document.getElementById("ctl00_ContentPlaceHolder1_RequiredFieldValidator7");
+ctl00_ContentPlaceHolder1_RequiredFieldValidator7.controltovalidate = "ctl00_ContentPlaceHolder1_lastchargedate";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator7.errormessage = "*";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator7.display = "Dynamic";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator7.validationGroup = "Group3";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator7.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator7.initialvalue = "";
+var ctl00_ContentPlaceHolder1_RequiredFieldValidator8 = document.all ? document.all["ctl00_ContentPlaceHolder1_RequiredFieldValidator8"] : document.getElementById("ctl00_ContentPlaceHolder1_RequiredFieldValidator8");
+ctl00_ContentPlaceHolder1_RequiredFieldValidator8.controltovalidate = "ctl00_ContentPlaceHolder1_meter_no";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator8.errormessage = "*";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator8.display = "Dynamic";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator8.validationGroup = "Group3";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator8.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator8.initialvalue = "";
+var ctl00_ContentPlaceHolder1_RequiredFieldValidator11 = document.all ? document.all["ctl00_ContentPlaceHolder1_RequiredFieldValidator11"] : document.getElementById("ctl00_ContentPlaceHolder1_RequiredFieldValidator11");
+ctl00_ContentPlaceHolder1_RequiredFieldValidator11.controltovalidate = "ctl00_ContentPlaceHolder1_property_type";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator11.errormessage = "*";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator11.display = "Dynamic";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator11.validationGroup = "Group1";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator11.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator11.initialvalue = "";
+var ctl00_ContentPlaceHolder1_RegularExpressionValidator1 = document.all ? document.all["ctl00_ContentPlaceHolder1_RegularExpressionValidator1"] : document.getElementById("ctl00_ContentPlaceHolder1_RegularExpressionValidator1");
+ctl00_ContentPlaceHolder1_RegularExpressionValidator1.controltovalidate = "ctl00_ContentPlaceHolder1_email";
+ctl00_ContentPlaceHolder1_RegularExpressionValidator1.errormessage = "البريد الالكتروني خاطئ";
+ctl00_ContentPlaceHolder1_RegularExpressionValidator1.display = "Dynamic";
+ctl00_ContentPlaceHolder1_RegularExpressionValidator1.validationGroup = "Group1";
+ctl00_ContentPlaceHolder1_RegularExpressionValidator1.evaluationfunction = "RegularExpressionValidatorEvaluateIsValid";
+ctl00_ContentPlaceHolder1_RegularExpressionValidator1.validationexpression = "\\w+([-+.\']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
+var ctl00_ContentPlaceHolder1_RequiredFieldValidator9 = document.all ? document.all["ctl00_ContentPlaceHolder1_RequiredFieldValidator9"] : document.getElementById("ctl00_ContentPlaceHolder1_RequiredFieldValidator9");
+ctl00_ContentPlaceHolder1_RequiredFieldValidator9.controltovalidate = "ctl00_ContentPlaceHolder1_email";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator9.errormessage = "*";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator9.display = "Dynamic";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator9.validationGroup = "Group1";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator9.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator9.initialvalue = "";
+var ctl00_ContentPlaceHolder1_RequiredFieldValidator12 = document.all ? document.all["ctl00_ContentPlaceHolder1_RequiredFieldValidator12"] : document.getElementById("ctl00_ContentPlaceHolder1_RequiredFieldValidator12");
+ctl00_ContentPlaceHolder1_RequiredFieldValidator12.controltovalidate = "ctl00_ContentPlaceHolder1_password";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator12.errormessage = "*";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator12.display = "Dynamic";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator12.validationGroup = "Group1";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator12.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator12.initialvalue = "";
+var ctl00_ContentPlaceHolder1_RegularExpressionValidator4 = document.all ? document.all["ctl00_ContentPlaceHolder1_RegularExpressionValidator4"] : document.getElementById("ctl00_ContentPlaceHolder1_RegularExpressionValidator4");
+ctl00_ContentPlaceHolder1_RegularExpressionValidator4.controltovalidate = "ctl00_ContentPlaceHolder1_password";
+ctl00_ContentPlaceHolder1_RegularExpressionValidator4.errormessage = "<div style=\'direction:ltr;text-align:left;\' ><br>Weak password! Password must contain the following:<Br>1- at least 1 character a-z.<br>2- at least one number 0-9.<br>3- length of password between 6-15 characters</div>";
+ctl00_ContentPlaceHolder1_RegularExpressionValidator4.display = "Dynamic";
+ctl00_ContentPlaceHolder1_RegularExpressionValidator4.validationGroup = "Group1";
+ctl00_ContentPlaceHolder1_RegularExpressionValidator4.evaluationfunction = "RegularExpressionValidatorEvaluateIsValid";
+ctl00_ContentPlaceHolder1_RegularExpressionValidator4.validationexpression = "^(?=.*(\\d|[^a-zA-Z]))(?=.*[a-z]).{6,15}$";
+var ctl00_ContentPlaceHolder1_RequiredFieldValidator13 = document.all ? document.all["ctl00_ContentPlaceHolder1_RequiredFieldValidator13"] : document.getElementById("ctl00_ContentPlaceHolder1_RequiredFieldValidator13");
+ctl00_ContentPlaceHolder1_RequiredFieldValidator13.controltovalidate = "ctl00_ContentPlaceHolder1_c_password";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator13.errormessage = "*";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator13.display = "Dynamic";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator13.validationGroup = "Group1";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator13.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator13.initialvalue = "";
+var ctl00_ContentPlaceHolder1_CompareValidator1 = document.all ? document.all["ctl00_ContentPlaceHolder1_CompareValidator1"] : document.getElementById("ctl00_ContentPlaceHolder1_CompareValidator1");
+ctl00_ContentPlaceHolder1_CompareValidator1.controltovalidate = "ctl00_ContentPlaceHolder1_c_password";
+ctl00_ContentPlaceHolder1_CompareValidator1.errormessage = "<br>كلمة المرور غير متطابقة!";
+ctl00_ContentPlaceHolder1_CompareValidator1.display = "Dynamic";
+ctl00_ContentPlaceHolder1_CompareValidator1.validationGroup = "Group1";
+ctl00_ContentPlaceHolder1_CompareValidator1.evaluationfunction = "CompareValidatorEvaluateIsValid";
+ctl00_ContentPlaceHolder1_CompareValidator1.controltocompare = "ctl00_ContentPlaceHolder1_password";
+ctl00_ContentPlaceHolder1_CompareValidator1.controlhookup = "ctl00_ContentPlaceHolder1_password";
+var ctl00_ContentPlaceHolder1_RegularExpressionValidator2 = document.all ? document.all["ctl00_ContentPlaceHolder1_RegularExpressionValidator2"] : document.getElementById("ctl00_ContentPlaceHolder1_RegularExpressionValidator2");
+ctl00_ContentPlaceHolder1_RegularExpressionValidator2.controltovalidate = "ctl00_ContentPlaceHolder1_alert_email";
+ctl00_ContentPlaceHolder1_RegularExpressionValidator2.errormessage = "البريد الالكتروني خاطئ";
+ctl00_ContentPlaceHolder1_RegularExpressionValidator2.display = "Dynamic";
+ctl00_ContentPlaceHolder1_RegularExpressionValidator2.validationGroup = "Group1";
+ctl00_ContentPlaceHolder1_RegularExpressionValidator2.evaluationfunction = "RegularExpressionValidatorEvaluateIsValid";
+ctl00_ContentPlaceHolder1_RegularExpressionValidator2.validationexpression = "\\w+([-+.\']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
+var ctl00_ContentPlaceHolder1_RequiredFieldValidator99 = document.all ? document.all["ctl00_ContentPlaceHolder1_RequiredFieldValidator99"] : document.getElementById("ctl00_ContentPlaceHolder1_RequiredFieldValidator99");
+ctl00_ContentPlaceHolder1_RequiredFieldValidator99.controltovalidate = "ctl00_ContentPlaceHolder1_random";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator99.errormessage = "*";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator99.display = "Dynamic";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator99.validationGroup = "Group1";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator99.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+ctl00_ContentPlaceHolder1_RequiredFieldValidator99.initialvalue = "";
+var ctl00_RequiredFieldValidator1 = document.all ? document.all["ctl00_RequiredFieldValidator1"] : document.getElementById("ctl00_RequiredFieldValidator1");
+ctl00_RequiredFieldValidator1.controltovalidate = "ctl00_searchkey";
+ctl00_RequiredFieldValidator1.errormessage = "*";
+ctl00_RequiredFieldValidator1.display = "Dynamic";
+ctl00_RequiredFieldValidator1.validationGroup = "s_group";
+ctl00_RequiredFieldValidator1.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+ctl00_RequiredFieldValidator1.initialvalue = "";
+//]]>
+</script>
+
+
+<script type="text/javascript">
+//<![CDATA[
+
+var Page_ValidationActive = false;
+if (typeof(ValidatorOnLoad) == "function") {
+    ValidatorOnLoad();
+}
+
+function ValidatorOnSubmit() {
+    if (Page_ValidationActive) {
+        return ValidatorCommonOnSubmit();
+    }
+    else {
+        return true;
+    }
+}
+        //]]>
+</script>
+</form>
+</body>
+</html>
