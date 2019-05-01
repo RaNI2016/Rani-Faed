@@ -6,26 +6,24 @@
 [ FONT ]*/
 
 @font-face {
-  font-family: Montserrat-Regular;
-  src: url('../fonts/montserrat/Montserrat-Regular.ttf');
+  font-family: Poppins-Regular;
+  src: url('../fonts/poppins/Poppins-Regular.ttf');
+}
+
+@font-face {
+  font-family: Poppins-Bold;
+  src: url('../fonts/poppins/Poppins-Bold.ttf');
+}
+
+@font-face {
+  font-family: Poppins-Medium;
+  src: url('../fonts/poppins/Poppins-Medium.ttf');
 }
 
 @font-face {
   font-family: Montserrat-Bold;
   src: url('../fonts/montserrat/Montserrat-Bold.ttf');
 }
-
-@font-face {
-  font-family: Montserrat-ExtraBold;
-  src: url('../fonts/montserrat/Montserrat-ExtraBold.ttf');
-}
-
-@font-face {
-  font-family: Montserrat-Medium;
-  src: url('../fonts/montserrat/Montserrat-Medium.ttf');
-}
-
-
 
 /*//////////////////////////////////////////////////////////////////
 [ RESTYLE TAG ]*/
@@ -38,12 +36,23 @@
 
 body, html {
 	height: 100%;
-	font-family: Montserrat-Regular, sans-serif;
+	font-family: Poppins-Regular, sans-serif;
 }
 
 /*---------------------------------------------*/
+a {
+	/* font-family: Poppins-Regular; */
+	/* font-size: 14px; */
+	line-height: 1.7;
+	color: #666666;
+	margin: 0px;
+	transition: all 0.4s;
+	-webkit-transition: all 0.4s;
+	-o-transition: all 0.4s;
+	-moz-transition: all 0.4s;
+}
 .gtco-container {
-  max-width: 100%;
+  max-width: 1100px;
   position: relative;
   margin: 0 auto;
   padding-left: 15px;
@@ -51,7 +60,7 @@ body, html {
 }
 
 .gtco-nav {
-  position: absolute;
+  /*position: absolute;*/
   top: 0;
   left: 0;
   margin: 0;
@@ -96,8 +105,8 @@ body, html {
 }
 .gtco-nav ul li a {
   font-size: 16px;
-  padding: 26px 1px;
-  color: rgba(0, 0, 0, 0.7);
+  padding: 30px 10px;
+  color: rgba(255, 255, 255, 0.7);
   -webkit-transition: 0.3s;
   -o-transition: 0.3s;
   transition: 0.3s;
@@ -171,20 +180,20 @@ body, html {
   color: #f54c53;
 }
 .gtco-nav ul li.btn-cta a span {
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    padding: 4px 20px;
-    color: #fff;
-    display: -moz-inline-stack;
-    display: inline-block;
-    zoom: 1;
-    *display: inline;
-    -webkit-transition: 0.3s;
-    -o-transition: 0.3s;
-    transition: 0.3s;
-    -webkit-border-radius: 7px;
-    -moz-border-radius: 7px;
-    -ms-border-radius: 7px;
-    border-radius: 7px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  padding: 4px 20px;
+  color: #fff;
+  display: -moz-inline-stack;
+  display: inline-block;
+  zoom: 1;
+  *display: inline;
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  -ms-border-radius: 7px;
+  border-radius: 7px;
 }
 .gtco-nav ul li.btn-cta a:hover span {
   background: #fff;
@@ -193,25 +202,13 @@ body, html {
 .gtco-nav ul li.active > a {
   color: #fff !important;
 }
-a {
-	/* font-family: Montserrat-Regular; */
-	/* font-size: 14px; */
-	line-height: 1.7;
-	color: #666666;
-	margin: 0px;
-	transition: all 0.4s;
-	-webkit-transition: all 0.4s;
-	-o-transition: all 0.4s;
-	-moz-transition: all 0.4s;
-}
-
 a:focus {
 	outline: none !important;
 }
 
 a:hover {
 	text-decoration: none;
-	color: #57b846;
+  color: #57b846;
 }
 
 /*---------------------------------------------*/
@@ -220,7 +217,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 p {
-	font-family: Montserrat-Regular;
+	font-family: Poppins-Regular;
 	font-size: 14px;
 	line-height: 1.7;
 	color: #666666;
@@ -258,15 +255,15 @@ textarea:focus:-moz-placeholder { color:transparent; }
 textarea:focus::-moz-placeholder { color:transparent; }
 textarea:focus:-ms-input-placeholder { color:transparent; }
 
-input::-webkit-input-placeholder { color: #aaaaaa; }
-input:-moz-placeholder { color: #aaaaaa; }
-input::-moz-placeholder { color: #aaaaaa; }
-input:-ms-input-placeholder { color: #aaaaaa; }
+input::-webkit-input-placeholder { color: #999999; }
+input:-moz-placeholder { color: #999999; }
+input::-moz-placeholder { color: #999999; }
+input:-ms-input-placeholder { color: #999999; }
 
-textarea::-webkit-input-placeholder { color: #aaaaaa; }
-textarea:-moz-placeholder { color: #aaaaaa; }
-textarea::-moz-placeholder { color: #aaaaaa; }
-textarea:-ms-input-placeholder { color: #aaaaaa; }
+textarea::-webkit-input-placeholder { color: #999999; }
+textarea:-moz-placeholder { color: #999999; }
+textarea::-moz-placeholder { color: #999999; }
+textarea:-ms-input-placeholder { color: #999999; }
 
 /*---------------------------------------------*/
 button {
@@ -284,19 +281,32 @@ iframe {
 }
 
 
+/*//////////////////////////////////////////////////////////////////
+[ Utility ]*/
+.txt1 {
+  font-family: Poppins-Regular;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #000000;
+}
+
+.txt2 {
+  font-family: Poppins-Regular;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #ffffff;
+}
 
 
 /*//////////////////////////////////////////////////////////////////
-[ Contact ]*/
+[ login ]*/
 
-.bg-contact100 {
+.limiter {
   width: 100%;
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
+  margin: 0 auto;
 }
 
-.container-contact100 {
+.container-login100 {
   width: 100%;
   min-height: 100vh;
   display: -webkit-box;
@@ -308,13 +318,15 @@ iframe {
   justify-content: center;
   align-items: center;
   padding: 15px;
-  /* background: rgba(132,106,221,0.9); */
+  /* background: -webkit-linear-gradient(-135deg, #c850c0, #4158d0); */
+  background: -o-linear-gradient(-135deg, #c850c0, #4158d0);
+  background: -moz-linear-gradient(-135deg, #c850c0, #4158d0);
+  /* background: linear-gradient(-135deg, #c850c0, #4158d0); */
   background: #50a3a2;
   background: linear-gradient(to bottom right, #50a3a2 0%, #53e3a6 100%);
 }
-
-.wrap-contact100 {
-  width: 1163px;
+.wrap-login100 {
+  width: 960px;
   background: rgba(210, 210, 210, 0);
   border-radius: 10px;
   overflow: hidden;
@@ -325,52 +337,38 @@ iframe {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 110px 130px 157px 148px;
+  padding: 70px 130px 33px 95px;
 }
 
 /*------------------------------------------------------------------
 [  ]*/
-.contact100-pic {
-  width: 310px;
-  padding-top: 55px;
+.login100-pic {
+  /* width: 316px; */
+  /* height: 300px; */
 }
 
-.contact100-pic img {
-  max-width: 100%;
+.login100-pic img {
 }
 
 
 /*------------------------------------------------------------------
 [  ]*/
-.contact100-form {
-  width: 390px;
+.login100-form {
+  width: 290px;
 }
 
-.contact100-form-title {
-  display: block;
-  font-family: Montserrat-ExtraBold;
+.login100-form-title {
+  font-family: Poppins-Bold;
   font-size: 24px;
   color: #333333;
   line-height: 1.2;
-  text-align: left;
-  padding-bottom: 36px;
+  text-align: center;
+
+  width: 100%;
+  display: block;
+  padding-bottom: 54px;
 }
 
-input.input100 {
-  height: 50px;
-  border-radius: 25px;
-  padding: 0 30px 0 50px;
-}
-
-input.input100[name="email"] {
-  padding: 0 30px 0 54px;
-}
-
-textarea.input100 {
-  min-height: 150px;
-  border-radius: 25px;
-  padding: 14px 30px;
-}
 
 /*---------------------------------------------*/
 .wrap-input100 {
@@ -381,13 +379,17 @@ textarea.input100 {
 }
 
 .input100 {
-  display: block;
-  width: 100%;
-  background: #e6e6e6;
-  font-family: Montserrat-Bold;
+  font-family: Poppins-Medium;
   font-size: 15px;
   line-height: 1.5;
   color: #666666;
+
+  display: block;
+  width: 100%;
+  background: #e6e6e6;
+  height: 50px;
+  border-radius: 25px;
+  padding: 0 30px 0 68px;
 }
 
 
@@ -403,7 +405,7 @@ textarea.input100 {
   width: 100%;
   height: 100%;
   box-shadow: 0px 0px 0px 0px;
-  color: rgba(132,106,221, 0.5);
+  color: rgba(87,184,70, 0.8);
 }
 
 .input100:focus + .focus-input100 {
@@ -413,19 +415,21 @@ textarea.input100 {
 
 @-webkit-keyframes anim-shadow {
   to {
-    box-shadow: 0px 0px 60px 25px;
+    box-shadow: 0px 0px 70px 25px;
     opacity: 0;
   }
 }
 
 @keyframes anim-shadow {
   to {
-    box-shadow: 0px 0px 60px 25px;
+    box-shadow: 0px 0px 70px 25px;
     opacity: 0;
   }
 }
 
 .symbol-input100 {
+  font-size: 15px;
+
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -438,10 +442,9 @@ textarea.input100 {
   left: 0;
   width: 100%;
   height: 100%;
-  padding-left: 30px;
+  padding-left: 35px;
   pointer-events: none;
-  color: #aaaaaa;
-  font-size: 15px;
+  color: #666666;
 
   -webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
@@ -450,13 +453,13 @@ textarea.input100 {
 }
 
 .input100:focus + .focus-input100 + .symbol-input100 {
-  color: #846add;
-  padding-left: 22px;
+  color: #57b846;
+  padding-left: 28px;
 }
 
 /*------------------------------------------------------------------
 [ Button ]*/
-.container-contact100-form-btn {
+.container-login100-form-btn {
   width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
@@ -468,15 +471,17 @@ textarea.input100 {
   padding-top: 20px;
 }
 
-.contact100-form-btn {
-  width: 100%;
-  height: 50px;
-  border-radius: 25px;
-  background: #846add;
+.login100-form-btn {
   font-family: Montserrat-Bold;
   font-size: 15px;
   line-height: 1.5;
   color: #fff;
+  text-transform: uppercase;
+
+  width: 100%;
+  height: 50px;
+  border-radius: 25px;
+  background: #57b846;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -492,54 +497,48 @@ textarea.input100 {
   transition: all 0.4s;
 }
 
-.contact100-form-btn:hover {
+.login100-form-btn:hover {
   background: #333333;
 }
+
+
 
 /*------------------------------------------------------------------
 [ Responsive ]*/
 
-@media (max-width: 1200px) {
-  .contact100-pic {
-    width: 33.5%;
-  }
 
-  .contact100-form {
-    width: 44%;
-  }
-}
 
 @media (max-width: 992px) {
-  .wrap-contact100 {
-    padding: 110px 80px 157px 90px;
+  .wrap-login100 {
+    padding: 177px 90px 33px 85px;
   }
 
-  .contact100-pic {
+  .login100-pic {
     width: 35%;
   }
 
-  .contact100-form {
-    width: 55%;
+  .login100-form {
+    width: 50%;
   }
 }
 
 @media (max-width: 768px) {
-  .wrap-contact100 {
-    padding: 110px 80px 157px 80px;
+  .wrap-login100 {
+    padding: 100px 80px 33px 80px;
   }
 
-  .contact100-pic {
+  .login100-pic {
     display: none;
   }
 
-  .contact100-form {
+  .login100-form {
     width: 100%;
   }
 }
 
 @media (max-width: 576px) {
-  .wrap-contact100 {
-    padding: 110px 15px 157px 15px;
+  .wrap-login100 {
+    padding: 100px 15px 33px 15px;
   }
 }
 
@@ -568,7 +567,7 @@ textarea.input100 {
   right: 8px;
   pointer-events: none;
 
-  font-family: Montserrat-Medium;
+  font-family: Poppins-Medium;
   color: #c80000;
   font-size: 13px;
   line-height: 1.4;
