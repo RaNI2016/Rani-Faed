@@ -776,7 +776,10 @@ iframe {
 .login100-form-btn:hover {
        background: #333333;
 }
-
+.gtco-nav ul li.btn-cta a:hover span {
+    background: #fff;
+    color: #f54c53;
+}
 /*------------------------------------------------------------------
 [ Responsive ]*/
 @media (max-width: 992px) {
