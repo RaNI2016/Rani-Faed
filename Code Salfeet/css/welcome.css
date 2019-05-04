@@ -223,7 +223,7 @@ button, html input[type="button"], input[type="reset"], input[type="submit"] {
 }
 
 .foter {
-       background: #e3e3e3;
+       /* background: #e3e3e3; */
        height: 60px;
        width: 100%;
        margin: 0 auto;
@@ -287,7 +287,7 @@ button, html input[type="button"], input[type="reset"], input[type="submit"] {
 
 body, html {
        height: 100%;
-       font-family: Poppins-Regular, sans-serif;
+        font-family: "Roboto", Arial, sans-serif;
 }
 
 /*---------------------------------------------*/
@@ -472,9 +472,9 @@ h1, h2, h3, h4, h5, h6 {
 
 p {
        font-family: Poppins-Regular;
-       font-size: 14px;
+       font-size: 20px;
        line-height: 1.7;
-       color: #666666;
+       color: #000000;
        margin: 0px;
 }
 
@@ -954,9 +954,12 @@ a {
   transition: 0.5s;
 }
 a:hover, a:active, a:focus {
-  color: #f54c53;
+  color: #000000;
   outline: none;
   text-decoration: none;
+}
+small a {
+  color: #f54c53;
 }
 /******
 p {
@@ -982,7 +985,7 @@ h1, h2, h3, h4, h5, h6, figure {
 
 ::selection {
   color: #fff;
-  background: #f54c53;
+  background: #ff000b;
 }
 
 .gtco-container {
@@ -2792,3 +2795,7 @@ form label {
 
 
 /*# sourceMappingURL=style.css.map */
+
+.col-md-12 {
+    width: 100%;
+    margin-top: 0px;
